@@ -2,7 +2,7 @@ use token;
 
 pub struct ListLexer {
     input: String,
-    current_chr: Option<char>,
+    lookahead_chr: Option<char>,
     position: u64,
 }
 
@@ -10,14 +10,14 @@ impl ListLexer {
     pub fn new(input: String) -> ListLexer {
         ListLexer {
             input: input.clone(),
-            current_chr: input.chars().nth(0),
+            lookahead_chr: input.chars().nth(0),
             position: 0,
         }
     }
 
     pub fn next_token(&mut self) -> token::Token {
-        while self.current_chr.is_some() {
-            match self.current_chr.unwrap() {
+        while self.lookahead_chr.is_some() {
+            match self.lookahead_chr.unwrap() {
                 ' ' | '\t' | '\n' | '\r' => {
                     self.white_space();
                     continue;
@@ -29,7 +29,7 @@ impl ListLexer {
                     if self.is_letter() {
                         return self.name();
                     } else {
-                        panic!("invalid character: {}", self.current_chr.unwrap());
+                        panic!("invalid character: {}", self.lookahead_chr.unwrap());
                     }
                 },
             }
@@ -41,7 +41,7 @@ impl ListLexer {
     fn name(&mut self) -> token::Token {
         let mut buf = String::new();
         loop {
-            buf.push(self.current_chr.unwrap());
+            buf.push(self.lookahead_chr.unwrap());
             self.consume();
 
             if !(self.is_letter()) { break }
@@ -52,7 +52,7 @@ impl ListLexer {
 
     fn white_space(&mut self) {
         loop {
-            match self.current_chr.unwrap() {
+            match self.lookahead_chr.unwrap() {
                 ' ' | '\t' | '\n' | '\r' => self.consume(),
                 _ => break
             }
@@ -63,15 +63,15 @@ impl ListLexer {
         self.position += 1;
 
         if self.position >= self.input.len() as u64 {
-            self.current_chr = None
+            self.lookahead_chr = None
         } else {
-            self.current_chr = self.input.chars().nth(self.position as usize)
+            self.lookahead_chr = self.input.chars().nth(self.position as usize)
         }
     }
 
     fn is_letter(&self) -> bool {
-        // Return false if current_chr is None
-        match self.current_chr.unwrap_or(' ') {
+        // Return false if lookahead_chr is None
+        match self.lookahead_chr.unwrap_or(' ') {
             'a' ... 'z' => true,
             'A' ... 'Z' => true,
             _ => false,
