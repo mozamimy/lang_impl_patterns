@@ -1,0 +1,6 @@
+[package]
+name = "ll1_lexer"
+version = "0.1.0"
+authors = ["mozamimy <alice@mozami.me>"]
+
+[dependencies]
