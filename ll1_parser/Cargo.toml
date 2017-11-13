@@ -1,0 +1,7 @@
+[package]
+name = "ll1_parser"
+version = "0.1.0"
+authors = ["mozamimy (Moza USANE) <alice@mozami.me>"]
+
+[dependencies]
+ll1_lexer = { path = "../ll1_lexer" }
