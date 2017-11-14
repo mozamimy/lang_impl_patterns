@@ -5,6 +5,8 @@ A collection of Rust implementations patterns written in "Language Implementatio
 ## Directories
 
 - ll1\_lexer: An implementation of the pattern 2 on Chapter 2, LL(1) lexer
+- ll1\_parser: An implementation of the pattern 3 on Chapter 2, LL(1) parser
+  - It works with ll1\_lexer implementation
 
 ## LICENSE
 

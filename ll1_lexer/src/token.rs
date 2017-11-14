@@ -1,6 +1,6 @@
 use std::fmt;
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Debug)]
 pub enum TokenType {
     NA,
     EOF,
@@ -25,6 +25,7 @@ impl fmt::Display for TokenType {
     }
 }
 
+#[derive(Clone, Debug)]
 pub struct Token {
     pub token_type: TokenType,
     text: String,

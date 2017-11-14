@@ -1,5 +1,6 @@
 use token;
 
+#[derive(Clone)]
 pub struct ListLexer {
     input: String,
     lookahead_chr: Option<char>,
